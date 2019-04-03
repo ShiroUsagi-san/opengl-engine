@@ -1,0 +1,38 @@
+package com.mahal.graphics.utils;
+
+import com.mahal.graphics.geometry.Mesh;
+import org.lwjgl.system.CallbackI;
+
+public class Color {
+    private float r;
+    private float g;
+    private float b;
+    public static Color BLUE            = new Color(0, 0, 1.0f);
+    public static Color RED             = new Color(1.f, 0, 0);
+    public static Color GREEN           = new Color(0, 1.f, 0);
+    public static Color BLACK           = new Color(0, 0, 0);
+    public static Color WHITE           = new Color(1.f, 1.0f, 1.0f);
+    public static Color YELLOW          = new Color(1.0f, 1.0f, 0);
+    public static Color CYAN            = new Color(0.0f, 1.0f, 1.0f);
+    public static Color MAGENTA         = new Color(1.0f, 0, 1.0f);
+
+    public Color(float r, float g, float b) {
+        this.r = r;
+        this.g = g;
+        this.b = b;
+    }
+    public static Color pickRandomColor() {
+       return new Color((float) Math.random(), (float) Math.random(),(float) Math.random());
+    }
+    public float getR() {
+        return r;
+    }
+
+    public float getG() {
+        return g;
+    }
+
+    public float getB() {
+        return b;
+    }
+}
