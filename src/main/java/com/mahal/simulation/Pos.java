@@ -1,5 +1,7 @@
 package com.mahal.simulation;
 
+import org.joml.Vector3f;
+
 import java.util.Objects;
 
 public class Pos {
@@ -26,7 +28,9 @@ public class Pos {
         Pos pos = (Pos) o;
         return this.x == pos.x && this.y == pos.y;
     }
-
+    public Vector3f getPosition() {
+        return new Vector3f(this.x, this.y, 0);
+    }
     public int getX() {
         return x;
     }

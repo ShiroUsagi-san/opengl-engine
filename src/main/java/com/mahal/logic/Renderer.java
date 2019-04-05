@@ -2,6 +2,7 @@ package com.mahal.logic;
 
 import com.mahal.graphics.*;
 import com.mahal.graphics.entity.Drawable;
+import com.mahal.graphics.entity.Renderable;
 import com.mahal.graphics.utils.Transformations;
 import com.mahal.graphics.utils.Utils;
 import org.joml.Matrix4f;

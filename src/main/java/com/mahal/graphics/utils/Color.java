@@ -15,6 +15,7 @@ public class Color {
     public static Color YELLOW          = new Color(1.0f, 1.0f, 0);
     public static Color CYAN            = new Color(0.0f, 1.0f, 1.0f);
     public static Color MAGENTA         = new Color(1.0f, 0, 1.0f);
+    public static Color GREY            = new Color(.5f, .5f, .5f);
 
     public Color(float r, float g, float b) {
         this.r = r;
@@ -23,6 +24,9 @@ public class Color {
     }
     public static Color pickRandomColor() {
        return new Color((float) Math.random(), (float) Math.random(),(float) Math.random());
+    }
+    public static Color newColor(float r, float g, float b) {
+        return new Color(r, g, b);
     }
     public float getR() {
         return r;

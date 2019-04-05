@@ -44,4 +44,6 @@ public class Drawable {
     public void setScale(int scale) {
         this.scale = scale;
     }
+
+    }
 }

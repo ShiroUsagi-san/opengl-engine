@@ -6,6 +6,7 @@ import com.mahal.logic.Context;
 
 public class Fourmiliere {
     public static int DIM = 500;
-    public static Zone zone;
+    public static Zone zone = new Zone(500);
+
 
 }
