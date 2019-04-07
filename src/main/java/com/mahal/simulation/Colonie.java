@@ -35,6 +35,13 @@ public class Colonie implements Entity {
         }
     }
 
+    @Override
+    public void update() {
+        for(Fourmi f: population) {
+            f.update();
+        }
+    }
+
     private void bouge() {
         for(Fourmi f: population) {
             f.bouge();
@@ -76,7 +83,5 @@ public class Colonie implements Entity {
     public void setQuantiteNid(int quantiteNid) {
         this.quantiteNid = quantiteNid;
     }
-
-
 
 }

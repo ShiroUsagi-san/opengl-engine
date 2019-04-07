@@ -1,6 +1,7 @@
 package com.mahal.graphics;
 
 
+import com.mahal.graphics.utils.Color;
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
@@ -128,7 +129,9 @@ public class Window {
     public void setClearColor(float r, float g, float b, float a) {
         glClearColor(r, g, b, a);
     }
-
+    public void setClearColor(Color c) {
+        glClearColor(c.getR(), c.getG(), c.getB(), 0);
+    }
     public void setWidth(int width) {
         this.width = width;
     }

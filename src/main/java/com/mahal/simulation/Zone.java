@@ -1,15 +1,18 @@
 package com.mahal.simulation;
 
+import com.mahal.graphics.ShaderProgram;
+import com.mahal.graphics.entity.Entity;
+
 import java.util.ArrayList;
 
-public class Zone {
-    private int dim;      // la dimension du territoire
-    private ArrayList<Tas> tas = new ArrayList<>(); // les tas de nourriture
+public class Zone implements Entity {
+    private int Xdim, Ydim;      // la dimension du territoire
+    private ArrayList<Tas> arrayTas = new ArrayList<>(); // les tas de nourriture
     private int nbTas = 0; // le nombre de tas
-
+    private ShaderProgram shaderProgram;
     /*************************************************
      * constructeur de la Zone
-     * @param dim  la dimension du terrain
+     * @param Xdim  la dimension du terrain
      * <ul>une zone est modelisee par ces informations :
      * <li>   le tableau t representant le territoire des fourmis
      * <li>    - t[i][j] = Integer.MAX_VALUE => obstacle
@@ -23,16 +26,22 @@ public class Zone {
      * <li>  la position des tas de nourriture
      * <ul>
      * ***********************************************/
-    public Zone(int dim) {
-        this.dim = dim;
+    public Zone(int Xdim, int Ydim, ShaderProgram shaderProgram) {
+        this.shaderProgram = shaderProgram;
+        this.Xdim = Xdim;
+        this.Ydim = Ydim;
     }
 
     /*************************************************
      * accesseur qui rend la dimension
      * @return la dimension
      * ***********************************************/
-    public int getDim() {
-        return dim;
+    public int getXdim() {
+        return Xdim;
+    }
+
+    public int getYdim() {
+        return Ydim;
     }
 
     /***********************************************************************
@@ -41,24 +50,17 @@ public class Zone {
      * @return vrai si OK
      * ********************************************************************/
     public boolean posValide(Pos p) {
-        return (p.getX() > 0 && p.getX() < this.dim && p.getY() > 0 && p.getY() < this.dim);
+        return (p.getX() > 0 && p.getX() < this.Xdim && p.getY() > 0 && p.getY() < this.Ydim);
     }
 
 
     public void metTas(Pos p) {
-        this.tas.add(new Tas(p));
+        this.arrayTas.add(new Tas(p, shaderProgram));
     }
     /***************************************************************
      * transforme en String la Zone : dimension - nid - tas
      * @return l'objet Zone transform� en String
      * ******************************************************************/
-    public String toString() {
-        String resul = "dim=" + this.dim + "\n";
-        for (int i = 0; i < nbTas; i++) {
-            resul += tas.toString() + " ";
-        }
-        return resul;
-    }
 
     /********************************************************************
      * pose de la ph�romone � la position p, direction d
@@ -70,4 +72,21 @@ public class Zone {
        // t[p.getX()][p.getY()] = -(d + 1);//-1 � -8 pb si 0
     }
 
+    @Override
+    public void render() {
+        for (Tas t: arrayTas)
+            t.render();
+    }
+
+    @Override
+    public void cleanup() {
+        for(Tas t: arrayTas)
+            t.cleanup();
+    }
+
+    @Override
+    public void update() {
+        for(Tas t: arrayTas)
+            t.update();
+    }
 }

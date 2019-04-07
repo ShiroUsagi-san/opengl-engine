@@ -7,6 +7,7 @@ import com.mahal.graphics.geometry.Mesh;
 import com.mahal.graphics.geometry.MeshBuilder;
 import com.mahal.graphics.utils.Color;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import java.util.Random;
 
@@ -16,10 +17,11 @@ public class Fourmi implements Entity {
     private Color color;
     private Quaternionf rot = new Quaternionf();
     private final static Color FOURMI_CHARGEE = Color.MAGENTA;
-    private final static Color FOURMI_VIDE    = Color.RED;
+    private final static Color FOURMI_VIDE    = Color.GREEN;
     private Drawable fourmiEntity;
     private ShaderProgram shaderProgram;
     private Colonie colonie;
+
 
     public Fourmi(Pos position, Colonie colonie, ShaderProgram shaderProgram) {
         this.position = position;
@@ -47,6 +49,14 @@ public class Fourmi implements Entity {
         this.fourmiEntity = new Drawable(fourmiMesh, rot, position.getPosition(), 1);
         this.shaderProgram = shaderProgram;
     }
+    public Fourmi() {
+        Random rand = new Random();
+        this.position = new Pos(rand.nextInt(Fourmiliere.DIM + 1), rand.nextInt(Fourmiliere.DIM + 1));
+        this.color = FOURMI_VIDE;
+        Mesh fourmiMesh = MeshBuilder.buildRect(this.position.getX(), this.position.getY(), 10, 10, this.color);
+        this.fourmiEntity = new Drawable(fourmiMesh, rot, position.getPosition(), 1);
+
+    }
     public void render(){
         this.fourmiEntity.predraw(this.shaderProgram);
         this.fourmiEntity.draw();
@@ -57,21 +67,26 @@ public class Fourmi implements Entity {
         this.fourmiEntity.cleanup();
     }
 
+    @Override
+    public void update() {
+        this.bouge();
+        this.fourmiEntity.setPosition(this.position.getPosition());
+    }
+
     public void prend() {
+        this.estCharge = true;
+        this.color = FOURMI_CHARGEE;
+    }
+
+    public void bouge() {
+        Pos next_pos = this.position.posVoisine();
+        this.position = next_pos;
+        prend();
 
     }
-    public Fourmi() {
-        Random rand = new Random();
-        this.position = new Pos(rand.nextInt(Fourmiliere.DIM + 1), rand.nextInt(Fourmiliere.DIM + 1));
-        this.color = FOURMI_VIDE;
-        Mesh fourmiMesh = MeshBuilder.buildRect(this.position.getX(), this.position.getY(), 10, 10, this.color);
-        this.fourmiEntity = new Drawable(fourmiMesh, rot, position.getPosition(), 1);
 
-    }
-    public void bouge(){
 
-    }
     public String toString() {
-        return "position: " + this.position + " colonie: " + this.colonie;
+        return "position: " + this.position + " colonie: " + this.colonie + " color: " + this.color;
     }
 }
