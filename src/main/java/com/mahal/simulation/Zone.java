@@ -1,15 +1,8 @@
 package com.mahal.simulation;
 
-import com.mahal.graphics.entity.Drawable;
-import com.mahal.graphics.entity.Renderable;
-import com.mahal.graphics.geometry.Mesh;
-import com.mahal.graphics.geometry.MeshBuilder;
-import com.mahal.graphics.utils.Color;
-import org.joml.Quaternionf;
-
 import java.util.ArrayList;
 
-public class Zone implements Renderable {
+public class Zone {
     private int dim;      // la dimension du territoire
     private ArrayList<Tas> tas = new ArrayList<>(); // les tas de nourriture
     private int nbTas = 0; // le nombre de tas
@@ -77,25 +70,4 @@ public class Zone implements Renderable {
        // t[p.getX()][p.getY()] = -(d + 1);//-1 � -8 pb si 0
     }
 
-    @Override
-    public void render() {
-        for(Tas tas :tas){
-            tas.render();
-        }
-    }
-
-    @Override
-    public void update(float interval) {
-        for(Tas tas: tas) {
-            tas.update(interval);
-        }
-
-    }
-
-    @Override
-    public void cleanup() {
-        for(Tas tas: tas) {
-            tas.cleanup();
-        }
-    }
 }

@@ -1,11 +1,8 @@
 package com.mahal.simulation;
 
-import com.mahal.graphics.entity.Drawable;
-import com.mahal.graphics.entity.Renderable;
-
 import java.util.Arrays;
 
-public class Colonie implements Renderable {
+public class Colonie {
     private Fourmi[] population;
     private int taille;
     private Pos pNid;
@@ -17,6 +14,11 @@ public class Colonie implements Renderable {
         this.population = new Fourmi[taille];
         for(int i =0; i < taille; i++){
             this.population[i] = new Fourmi(pNid);
+        }
+    }
+    public void render(){
+        for(Fourmi f: population) {
+            f.render();
         }
     }
     private void bouge() {
@@ -65,25 +67,6 @@ public class Colonie implements Renderable {
                 '}';
     }
 
-    @Override
-    public void render() {
-        for (Fourmi f: this.population){
-            f.render();
-        }
-    }
 
-    @Override
-    public void update(float interval) {
-        for(Fourmi f: this.population) {
-            f.update(interval);
-        }
-    }
-
-    @Override
-    public void cleanup() {
-        for(Fourmi f: this.population) {
-            f.cleanup();
-        }
-    }
 
 }

@@ -2,7 +2,6 @@ package com.mahal.logic;
 
 import com.mahal.graphics.*;
 import com.mahal.graphics.entity.Drawable;
-import com.mahal.graphics.entity.Renderable;
 import com.mahal.graphics.utils.Transformations;
 import com.mahal.graphics.utils.Utils;
 import org.joml.Matrix4f;
@@ -34,23 +33,13 @@ public class Renderer {
 
         window.setClearColor(0.f, 0.f, 0.f, 0.f);
 
-
     }
 
-    public void render(Window window, List<Drawable> items) {
-
+    public void render(Window window) {
         clear();
         shaderProgram.bind();
         Matrix4f projectionMatrix = transformations.getOrthoMatrix(window.getWidth(), window.getHeight(), Z_NEAR, Z_FAR);
         shaderProgram.setUniform("projectionMatrix", projectionMatrix);
-        for(Drawable item : items) {
-            Matrix4f worldMatrix = transformations.getModelMatrix(
-                    item.getPosition(),
-                    item.getRotation(),
-                    item.getScale());
-            shaderProgram.setUniform("modelMatrix", worldMatrix);
-            item.getMesh().render();
-        }
         shaderProgram.unbind();
     }
     public void cleanup() {
@@ -59,7 +48,6 @@ public class Renderer {
         }
 
     }
-
 
     public void clear() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

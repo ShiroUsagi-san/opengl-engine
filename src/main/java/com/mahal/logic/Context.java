@@ -1,21 +1,13 @@
 package com.mahal.logic;
 
 import com.mahal.graphics.entity.Drawable;
-import com.mahal.graphics.entity.Renderable;
-import com.mahal.graphics.geometry.Mesh;
-import com.mahal.graphics.geometry.MeshBuilder;
 import com.mahal.graphics.IGraphicsLogic;
 import com.mahal.graphics.Window;
-import com.mahal.graphics.utils.Color;
 import com.mahal.simulation.Colonie;
 import com.mahal.simulation.Pos;
 import com.mahal.simulation.Zone;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
 
 import java.util.ArrayList;
-
-import static com.mahal.simulation.Fourmiliere.*;
 
 public class Context implements IGraphicsLogic {
 
@@ -40,8 +32,6 @@ public class Context implements IGraphicsLogic {
         zone.metTas(p3);
         zone.metTas(p4);
         Colonie c = new Colonie(10, pNid);
-        items.add(c);
-        items.add(zone);
     }
     public void addItem(Drawable item) {
         this.items.add(item);
@@ -63,13 +53,13 @@ public class Context implements IGraphicsLogic {
     @Override
     public void render(Window window) {
         window.setClearColor(color, color, color, 0.0f);
-        renderer.render(window, items);
+        renderer.render(window);
     }
 
     @Override
     public void cleanup() {
         renderer.cleanup();
-        for(Renderable item : items) {
+        for(Drawable item : items) {
             item.cleanup();
         }
     }

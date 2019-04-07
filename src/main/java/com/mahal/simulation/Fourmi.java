@@ -1,7 +1,6 @@
 package com.mahal.simulation;
 
 import com.mahal.graphics.entity.Drawable;
-import com.mahal.graphics.entity.Renderable;
 import com.mahal.graphics.geometry.Mesh;
 import com.mahal.graphics.geometry.MeshBuilder;
 import com.mahal.graphics.utils.Color;
@@ -9,7 +8,7 @@ import org.joml.Quaternionf;
 
 import java.util.Random;
 
-public class Fourmi implements Renderable {
+public class Fourmi {
     private Pos position;
     private boolean estCharge;
     private Color color;
@@ -38,21 +37,9 @@ public class Fourmi implements Renderable {
         this.position = position;
         this.color = FOURMI_VIDE;
     }
-    @Override
-    public void render() {
-        this.fourmiEntity.getMesh().render();
+    public void render(){
+        this.fourmiEntity.draw();
     }
-
-    @Override
-    public void update(float interval) {
-
-    }
-
-    @Override
-    public void cleanup() {
-        this.fourmiEntity.getMesh().cleanUp();
-    }
-
 
     public void prend() {
 
