@@ -15,6 +15,7 @@ public class Drawable {
     private int scale;
     private Transformations transformations;
     public Drawable(Mesh mesh, Quaternionf quaternion, Vector3f position, int scale) {
+        this.transformations = new Transformations();
         this.mesh = mesh;
         this.rotation = quaternion;
         this.position = position;

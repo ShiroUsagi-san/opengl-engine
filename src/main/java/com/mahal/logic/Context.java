@@ -1,18 +1,17 @@
 package com.mahal.logic;
 
-import com.mahal.graphics.entity.Drawable;
 import com.mahal.graphics.IGraphicsLogic;
 import com.mahal.graphics.Window;
+import com.mahal.graphics.entity.Entity;
 import com.mahal.simulation.Colonie;
 import com.mahal.simulation.Pos;
 import com.mahal.simulation.Zone;
-
 import java.util.ArrayList;
 
 public class Context implements IGraphicsLogic {
 
     private float color = 0.0f;
-    private ArrayList<Drawable> items = new ArrayList<>();
+    private ArrayList<Entity> items = new ArrayList<>();
     private final Renderer renderer;
 
     public Context() {
@@ -23,21 +22,15 @@ public class Context implements IGraphicsLogic {
     public void init(Window window) throws Exception {
         renderer.init(window);
         Zone zone = new Zone(500);
-
-        Pos p1 = new Pos(200, 320);
-        Pos p3 = new Pos(360, 380);
-        Pos p4 = new Pos(250, 250);
-        Pos pNid = new Pos(300, 300);
-        zone.metTas(p1);
-        zone.metTas(p3);
-        zone.metTas(p4);
-        Colonie c = new Colonie(10, pNid);
+        Pos pNid = new Pos(50, 50);
+        Colonie c = new Colonie(1, pNid, renderer.getShaderProgram());
+        items.add(c);
     }
-    public void addItem(Drawable item) {
+    public void addItem(Entity item) {
         this.items.add(item);
     }
 
-    public ArrayList<Drawable> getItems() {
+    public ArrayList<Entity> getItems() {
         return items;
     }
 
@@ -54,14 +47,18 @@ public class Context implements IGraphicsLogic {
     public void render(Window window) {
         window.setClearColor(color, color, color, 0.0f);
         renderer.render(window);
+        renderer.getShaderProgram().bind();
+        for(Entity e: items) {
+            e.render();
+        }
+        renderer.getShaderProgram().unbind();
     }
 
     @Override
     public void cleanup() {
         renderer.cleanup();
-        for(Drawable item : items) {
+        for(Entity item : items)
             item.cleanup();
-        }
     }
 }
 

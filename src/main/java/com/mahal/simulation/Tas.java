@@ -1,12 +1,13 @@
 package com.mahal.simulation;
 
 import com.mahal.graphics.entity.Drawable;
+import com.mahal.graphics.entity.Entity;
 import com.mahal.graphics.geometry.Mesh;
 import com.mahal.graphics.geometry.MeshBuilder;
 import com.mahal.graphics.utils.Color;
 import org.joml.Quaternionf;
 
-public class Tas {
+public class Tas implements Entity {
     private int quantite;
     private final int DIMENSION =  10;
     private Drawable tas;
@@ -19,7 +20,6 @@ public class Tas {
 
     }
 
-
     void diminuer(int q) {
         this.quantite -= q;
     }
@@ -29,5 +29,15 @@ public class Tas {
 
     public Pos getPos() {
         return pos;
+    }
+
+    @Override
+    public void render() {
+        this.tas.draw();
+    }
+
+    @Override
+    public void cleanup() {
+        this.tas.cleanup();
     }
 }

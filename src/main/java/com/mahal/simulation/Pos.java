@@ -46,4 +46,12 @@ public class Pos {
     public void setY(int y) {
         this.y = y;
     }
+
+    @Override
+    public String toString() {
+        return "Pos{" +
+                "x:" + x +
+                ", y:" + y +
+                '}';
+    }
 }

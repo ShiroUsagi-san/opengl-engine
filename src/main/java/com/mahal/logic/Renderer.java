@@ -1,12 +1,10 @@
 package com.mahal.logic;
 
 import com.mahal.graphics.*;
-import com.mahal.graphics.entity.Drawable;
 import com.mahal.graphics.utils.Transformations;
 import com.mahal.graphics.utils.Utils;
 import org.joml.Matrix4f;
 
-import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -35,12 +33,15 @@ public class Renderer {
 
     }
 
+    public ShaderProgram getShaderProgram() {
+        return this.shaderProgram;
+    }
+
     public void render(Window window) {
         clear();
-        shaderProgram.bind();
         Matrix4f projectionMatrix = transformations.getOrthoMatrix(window.getWidth(), window.getHeight(), Z_NEAR, Z_FAR);
         shaderProgram.setUniform("projectionMatrix", projectionMatrix);
-        shaderProgram.unbind();
+
     }
     public void cleanup() {
         if (shaderProgram != null) {

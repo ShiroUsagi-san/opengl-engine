@@ -1,19 +1,25 @@
 package com.mahal.simulation;
 
-import java.util.Arrays;
+import com.mahal.graphics.ShaderProgram;
+import com.mahal.graphics.entity.Entity;
 
-public class Colonie {
+import java.util.Arrays;
+import java.util.FormatFlagsConversionMismatchException;
+
+public class Colonie implements Entity {
     private Fourmi[] population;
     private int taille;
     private Pos pNid;
     private int quantiteNid;
+    private ShaderProgram shaderProgram;
 
-    public Colonie(int taille, Pos pNid) {
+    public Colonie(int taille, Pos pNid, ShaderProgram shaderProgram) {
         this.taille = taille;
         this.pNid = pNid;
         this.population = new Fourmi[taille];
-        for(int i =0; i < taille; i++){
-            this.population[i] = new Fourmi(pNid);
+        this.shaderProgram = shaderProgram;
+        for(int i = 0; i < taille; i++){
+            this.population[i] = new Fourmi(pNid, this, shaderProgram);
         }
     }
     public void render(){
@@ -21,8 +27,22 @@ public class Colonie {
             f.render();
         }
     }
+
+    @Override
+    public void cleanup() {
+        for (Fourmi f: population) {
+            f.cleanup();
+        }
+    }
+
     private void bouge() {
-        //TODO: implementation
+        for(Fourmi f: population) {
+            f.bouge();
+        }
+    }
+    public void bouge(int n) {
+        for(int i = 0; i < n; i++)
+            bouge();
     }
 
     public Fourmi[] getPopulation() {
@@ -55,16 +75,6 @@ public class Colonie {
 
     public void setQuantiteNid(int quantiteNid) {
         this.quantiteNid = quantiteNid;
-    }
-
-    @Override
-    public String toString() {
-        return "Colonie{" +
-                "population=" + Arrays.toString(population) +
-                ", taille=" + taille +
-                ", pNid=" + pNid +
-                ", quantiteNid=" + quantiteNid +
-                '}';
     }
 
 
