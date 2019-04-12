@@ -2,14 +2,12 @@ package com.mahal.graphics;
 
 
 import com.mahal.graphics.utils.Color;
-import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
 import java.nio.*;
 
-import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.*;
@@ -24,7 +22,7 @@ public class Window {
     private String title;
     private boolean isCentered;
     private boolean isVsync;
-
+    private boolean resized;
     public Window(int width, int height, String title, boolean isCentered, boolean isVsync) {
         this.width = width;
         this.height = height;
@@ -37,6 +35,7 @@ public class Window {
         this.width = width;
         this.height = height;
         this.title = title;
+        this.resized = false;
         this.isCentered = isCentered;
     }
 
@@ -44,11 +43,13 @@ public class Window {
         this.title = "window";
         this.width = width;
         this.height = height;
+        this.resized = false;
     }
 
     public Window(int width, int height, String title) {
         this.width = width;
         this.height = height;
+        this.resized = false;
         this.title = title;
     }
 
@@ -78,6 +79,11 @@ public class Window {
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 
+        glfwSetFramebufferSizeCallback(window, (window, width, height) -> {
+            this.width = width;
+            this.height = height;
+            this.setResized(true);
+        });
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
             if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
@@ -118,6 +124,7 @@ public class Window {
     }
 
     public void update() {
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
@@ -153,11 +160,11 @@ public class Window {
     }
 
     public int getWidth() {
-        return width;
+        return this.width;
     }
 
     public int getHeight() {
-        return height;
+        return this.height;
     }
 
     public String getTitle() {
@@ -166,6 +173,14 @@ public class Window {
 
     public boolean isCentered() {
         return isCentered;
+    }
+
+    public boolean isResized() {
+        return resized;
+    }
+
+    public void setResized(boolean resized) {
+        this.resized = resized;
     }
 
     public boolean isVsync() {

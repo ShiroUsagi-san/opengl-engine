@@ -6,27 +6,37 @@ import com.mahal.graphics.entity.Entity;
 import com.mahal.graphics.geometry.Mesh;
 import com.mahal.graphics.geometry.MeshBuilder;
 import com.mahal.graphics.utils.Color;
-import org.joml.Quaternionf;
+
 
 public class Tas implements Entity {
-    private int quantite;
-    private final int DIMENSION =  50;
+    private float quantite;
+    private final float DIMENSION =  50;
+    private  float MAX_QUANTITE;
     private Drawable tas;
     private ShaderProgram shaderProgram;
     private Pos pos;
 
-    public Tas(Pos pos, ShaderProgram shaderProgram) {
+    public Tas(float quantite, Pos pos, ShaderProgram shaderProgram) {
         this.pos = pos;
+        this.quantite = quantite;
+        MAX_QUANTITE = quantite;
         this.shaderProgram = shaderProgram;
-        Mesh tasMesh = MeshBuilder.buildRect(this.pos.getX(), this.pos.getY(), DIMENSION, DIMENSION, Color.GREY);
-        this.tas = new Drawable(tasMesh, new Quaternionf(), this.pos.getPosition(), 1);
+        Mesh tasMesh = MeshBuilder.buildRect(this.pos.getX(), this.pos.getY(), DIMENSION, DIMENSION);
+        this.tas = new Drawable(tasMesh, 0.0f, this.pos.getPosition(), 1, Color.GREY);
 
     }
-
-    void diminuer(int q) {
+    public boolean isIn(Pos p) {
+        return (p.getX() >= this.pos.getX() &&
+                p.getX() <= this.pos.getX() + 25* this.tas.getScale())
+                && (p.getY() >= this.pos.getY() &&
+                p.getY() <= this.pos.getY() + 25 * this.tas.getScale() );
+    }
+    void diminuer(float q) {
         this.quantite -= q;
+        float newScale = this.getQuantite() / MAX_QUANTITE;
+        this.tas.setScale(newScale);
     }
-    public int getQuantite() {
+    public float getQuantite() {
         return quantite;
     }
 
@@ -47,6 +57,5 @@ public class Tas implements Entity {
 
     @Override
     public void update() {
-        this.tas.setPosition(this.pos.getPosition());
     }
 }

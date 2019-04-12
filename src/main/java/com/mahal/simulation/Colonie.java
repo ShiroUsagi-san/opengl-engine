@@ -3,9 +3,6 @@ package com.mahal.simulation;
 import com.mahal.graphics.ShaderProgram;
 import com.mahal.graphics.entity.Entity;
 
-import java.util.Arrays;
-import java.util.FormatFlagsConversionMismatchException;
-
 public class Colonie implements Entity {
     private Fourmi[] population;
     private int taille;

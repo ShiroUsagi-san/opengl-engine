@@ -2,7 +2,6 @@ package com.mahal.simulation;
 
 import org.joml.Vector3f;
 
-import java.util.Objects;
 
 public class Pos {
     private int x;
@@ -13,14 +12,21 @@ public class Pos {
         this.y = y;
     }
     public Pos(int dim) {
-        this.x = (int)(Math.random() * dim);
-        this.y = (int)(Math.random() * dim);
+        this.x = Math.round((float)Math.random() * dim);
+        this.y = Math.round((float)Math.random() * dim);
     }
     public Pos posVoisine(){
-        int dx = (int) (Math.random() *3)-1;
-        int dy = (int) (Math.random() *3)-1;
-        return new Pos(this.x+dx,this.y+dy);
+        int dx = Math.round((int)(Math.random()*3))-1;
+        int dy = Math.round((int)(Math.random() *3))-1;
+        return new Pos(this.x+dx*2,this.y+dy*2);
     }
+
+    public Pos nextPos(Dir dir) {
+        this.x += dir.dx();
+        this.y += dir.dy();
+        return new Pos(this.x , this.y);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -46,6 +52,7 @@ public class Pos {
     public void setY(int y) {
         this.y = y;
     }
+
 
     @Override
     public String toString() {

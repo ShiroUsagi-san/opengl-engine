@@ -1,12 +1,11 @@
 package com.mahal.graphics;
 
+
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
-import org.lwjgl.opengl.GL45;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.FloatBuffer;
-import java.rmi.server.ExportException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,7 +54,17 @@ public class ShaderProgram {
             System.out.println(e);
         }
     }
+    public void setUniform(String uniformName, Vector3f vec) {
+        try(MemoryStack stack = MemoryStack.stackPush()) {
+            FloatBuffer fb = stack.mallocFloat(3);
+            vec.get(fb);
+            glUniform3fv(this.uniformsMap.get(uniformName), fb);
 
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
     protected int createShader(String shaderCode, int shaderType) throws Exception {
         int shaderId = glCreateShader(shaderType);
         if (shaderId == 0) {

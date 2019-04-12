@@ -1,6 +1,7 @@
 package com.mahal.graphics.utils;
 
 import com.mahal.graphics.geometry.Mesh;
+import org.joml.Vector3f;
 import org.lwjgl.system.CallbackI;
 
 public class Color {
@@ -21,6 +22,9 @@ public class Color {
         this.r = r;
         this.g = g;
         this.b = b;
+    }
+    public Vector3f getColor() {
+        return new Vector3f(this.r, this.g, this.b);
     }
     public static Color pickRandomColor() {
        return new Color((float) Math.random(), (float) Math.random(),(float) Math.random());

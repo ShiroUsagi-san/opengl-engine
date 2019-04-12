@@ -28,6 +28,7 @@ public class Renderer {
 
         shaderProgram.createUniform("projectionMatrix");
         shaderProgram.createUniform("modelMatrix");
+        shaderProgram.createUniform("inColor");
 
         window.setClearColor(0.f, 0.f, 0.f, 0.f);
 
@@ -39,6 +40,7 @@ public class Renderer {
 
     public void render(Window window) {
         clear();
+        System.out.println(window.getHeight());
         Matrix4f projectionMatrix = transformations.getOrthoMatrix(window.getWidth(), window.getHeight(), Z_NEAR, Z_FAR);
         shaderProgram.setUniform("projectionMatrix", projectionMatrix);
 

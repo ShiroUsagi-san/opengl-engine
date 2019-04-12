@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Zone implements Entity {
     private int Xdim, Ydim;      // la dimension du territoire
-    private ArrayList<Tas> arrayTas = new ArrayList<>(); // les tas de nourriture
+    private ArrayList<Entity> zoneEntity = new ArrayList<>(); // les tas de nourriture
     private int nbTas = 0; // le nombre de tas
     private ShaderProgram shaderProgram;
     /*************************************************
@@ -52,10 +52,20 @@ public class Zone implements Entity {
     public boolean posValide(Pos p) {
         return (p.getX() > 0 && p.getX() < this.Xdim && p.getY() > 0 && p.getY() < this.Ydim);
     }
+    public Tas isInTas(Pos p){
+        for(Entity t: zoneEntity){
+            if(t instanceof Tas) {
+                Tas leTas = (Tas)t;
+                if (leTas.isIn(p)){
+                    return leTas;
+                }
+            }
+         }
+        return null;
+    }
 
-
-    public void metTas(Pos p) {
-        this.arrayTas.add(new Tas(p, shaderProgram));
+    public void metTas(int quantite, Pos p) {
+        this.zoneEntity.add(new Tas(quantite, p, shaderProgram));
     }
     /***************************************************************
      * transforme en String la Zone : dimension - nid - tas
@@ -67,26 +77,27 @@ public class Zone implements Entity {
      * @param p la position
      * @param d la direction
      * *****************************************************************/
-    public void posePhero(Pos p, int d) {
+    public void posePhero(Pos p) {
+
         //TODO: A IMPLEMENTER
        // t[p.getX()][p.getY()] = -(d + 1);//-1 � -8 pb si 0
     }
 
     @Override
     public void render() {
-        for (Tas t: arrayTas)
+        for (Entity t: zoneEntity)
             t.render();
     }
 
     @Override
     public void cleanup() {
-        for(Tas t: arrayTas)
+        for(Entity t: zoneEntity)
             t.cleanup();
     }
 
     @Override
     public void update() {
-        for(Tas t: arrayTas)
+        for(Entity t: zoneEntity)
             t.update();
     }
 }

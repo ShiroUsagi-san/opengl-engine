@@ -2,36 +2,39 @@ package com.mahal.graphics.entity;
 
 import com.mahal.graphics.ShaderProgram;
 import com.mahal.graphics.geometry.Mesh;
+import com.mahal.graphics.utils.Color;
 import com.mahal.graphics.utils.Transformations;
 import org.joml.Matrix4f;
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 
 public class Drawable {
     private Mesh mesh;
-    private Quaternionf rotation;
+    //private Quaternionf rotation;
     private Vector3f position;
-    private int scale;
+    private float scale;
+    private float rot;
     private Transformations transformations;
-    public Drawable(Mesh mesh, Quaternionf quaternion, Vector3f position, int scale) {
+    private Color color;
+    public Drawable(Mesh mesh, float Zrotation, Vector3f position, float scale, Color color) {
         this.transformations = new Transformations();
         this.mesh = mesh;
-        this.rotation = quaternion;
+        this.rot = Zrotation;
         this.position = position;
         this.scale = scale;
+        this.color = color;
     }
 
     public Mesh getMesh() {
         return mesh;
     }
 
-    public Quaternionf getRotation() {
-        return rotation;
+    public float getRot() {
+        return rot;
     }
 
-    public void setRotation(Quaternionf rotation) {
-        this.rotation = rotation;
+    public void setRot(float rot) {
+        this.rot = rot;
     }
 
     public Vector3f getPosition() {
@@ -42,12 +45,20 @@ public class Drawable {
         this.position = position;
     }
 
-    public int getScale() {
+    public float getScale() {
         return scale;
     }
 
-    public void setScale(int scale) {
+    public void setScale(float scale) {
         this.scale = scale;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public void draw(){
@@ -57,8 +68,10 @@ public class Drawable {
         this.mesh.cleanUp();
     }
     public void predraw(ShaderProgram shader) {
-        Matrix4f worldMatrix = transformations.getModelMatrix(this.getPosition(), this.getRotation(), this.getScale());
+        Matrix4f worldMatrix = transformations.getModelMatrix(this.getPosition(), this.getRot(), this.getScale());
         shader.setUniform("modelMatrix", worldMatrix);
+        shader.setUniform("inColor", this.color.getColor());
+
     }
 
 }

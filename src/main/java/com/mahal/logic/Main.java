@@ -2,6 +2,7 @@ package com.mahal.logic;
 
 import com.mahal.graphics.GraphicsEngine;
 import com.mahal.graphics.IGraphicsLogic;
+import com.mahal.simulation.Fourmiliere;
 
 public class Main {
     public static int WIDTH = 1200;
@@ -9,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             boolean vSync = true;
-            IGraphicsLogic gameLogic = new Context();
+            IGraphicsLogic gameLogic = new Fourmiliere();
             GraphicsEngine gameEng = new GraphicsEngine("GAME",
                     WIDTH, HEIGHT, false, vSync, gameLogic);
             gameEng.start();
