@@ -75,6 +75,7 @@ public class Fourmi implements Entity {
     public void update() {
         this.duration --;
         this.bouge();
+
         this.fourmiEntity.setPosition(this.position.getPosition());
         this.fourmiEntity.setColor(this.color);
 
@@ -96,7 +97,7 @@ public class Fourmi implements Entity {
     }
 
     public void bouge() {
-
+        System.out.println(this.position);
         if(this.duration <= 0) {
             this.duration = 100;
             this.next_dir = Dir.DirAleatoire();
@@ -105,7 +106,8 @@ public class Fourmi implements Entity {
             if (!this.estCharge) {
                 this.position = this.position.nextPos(this.next_dir);
 
-                Tas tas = Fourmiliere.zone.isInTas(this.position);
+                Tas tas = this.colonie.getZone().isInTas(this.position);
+
                 if ( tas!= null) {
                     if(tas.getQuantite() > 0.0f) {
                         prend(tas);

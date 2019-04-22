@@ -42,6 +42,7 @@ public class Drawable {
     }
 
     public void setPosition(Vector3f position) {
+
         this.position = position;
     }
 

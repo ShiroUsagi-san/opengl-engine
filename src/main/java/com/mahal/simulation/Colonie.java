@@ -3,17 +3,21 @@ package com.mahal.simulation;
 import com.mahal.graphics.ShaderProgram;
 import com.mahal.graphics.entity.Entity;
 
+import java.util.ArrayList;
+
 public class Colonie implements Entity {
     private Fourmi[] population;
     private int taille;
     private Pos pNid;
     private int quantiteNid;
     private ShaderProgram shaderProgram;
+    private Zone zone;
 
-    public Colonie(int taille, Pos pNid, ShaderProgram shaderProgram) {
+    public Colonie(int taille, Pos pNid, ShaderProgram shaderProgram, Zone zone) {
         this.taille = taille;
         this.pNid = pNid;
         this.population = new Fourmi[taille];
+        this.zone = zone;
         this.shaderProgram = shaderProgram;
         for(int i = 0; i < taille; i++){
             this.population[i] = new Fourmi(pNid, this, shaderProgram);
@@ -79,6 +83,10 @@ public class Colonie implements Entity {
 
     public void setQuantiteNid(int quantiteNid) {
         this.quantiteNid = quantiteNid;
+    }
+
+    public Zone getZone() {
+        return this.zone;
     }
 
 }

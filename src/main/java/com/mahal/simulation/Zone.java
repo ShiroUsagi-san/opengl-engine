@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Zone implements Entity {
     private int Xdim, Ydim;      // la dimension du territoire
-    private ArrayList<Entity> zoneEntity = new ArrayList<>(); // les tas de nourriture
+    private ArrayList<Entity> zoneEntities = new ArrayList<>(); // les tas de nourriture
     private int nbTas = 0; // le nombre de tas
     private ShaderProgram shaderProgram;
     /*************************************************
@@ -53,7 +53,7 @@ public class Zone implements Entity {
         return (p.getX() > 0 && p.getX() < this.Xdim && p.getY() > 0 && p.getY() < this.Ydim);
     }
     public Tas isInTas(Pos p){
-        for(Entity t: zoneEntity){
+        for(Entity t: zoneEntities){
             if(t instanceof Tas) {
                 Tas leTas = (Tas)t;
                 if (leTas.isIn(p)){
@@ -65,7 +65,7 @@ public class Zone implements Entity {
     }
 
     public void metTas(int quantite, Pos p) {
-        this.zoneEntity.add(new Tas(quantite, p, shaderProgram));
+        this.zoneEntities.add(new Tas(quantite, p, shaderProgram));
     }
     /***************************************************************
      * transforme en String la Zone : dimension - nid - tas
@@ -85,19 +85,19 @@ public class Zone implements Entity {
 
     @Override
     public void render() {
-        for (Entity t: zoneEntity)
+        for (Entity t: zoneEntities)
             t.render();
     }
 
     @Override
     public void cleanup() {
-        for(Entity t: zoneEntity)
+        for(Entity t: zoneEntities)
             t.cleanup();
     }
 
     @Override
     public void update() {
-        for(Entity t: zoneEntity)
+        for(Entity t: zoneEntities)
             t.update();
     }
 }

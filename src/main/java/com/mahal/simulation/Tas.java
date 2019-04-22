@@ -27,9 +27,9 @@ public class Tas implements Entity {
     }
     public boolean isIn(Pos p) {
         return (p.getX() >= this.pos.getX() &&
-                p.getX() <= this.pos.getX() + 25* this.tas.getScale())
+                p.getX() <= this.pos.getX() + DIMENSION * this.tas.getScale())
                 && (p.getY() >= this.pos.getY() &&
-                p.getY() <= this.pos.getY() + 25 * this.tas.getScale() );
+                p.getY() <= this.pos.getY() + DIMENSION * this.tas.getScale() );
     }
     void diminuer(float q) {
         this.quantite -= q;
