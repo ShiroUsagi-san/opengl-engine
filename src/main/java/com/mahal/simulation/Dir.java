@@ -12,8 +12,8 @@ package com.mahal.simulation;
 public class Dir {
 
 private int  coded; // entier entre 0 et 7
-private static int[] ddx ={-1, -1, -1,  0,  1, 1, 1, 0};
-private static int[] ddy ={ 1,  0, -1, -1, -1, 0, 1, 1};
+private static int[] ddx = {-1, -1, -1,  0,  1, 1, 1, 0};
+private static int[] ddy = { 1,  0, -1, -1, -1, 0, 1, 1};
   /**************************************************************
   * constructeur construit une direction dont on donne le code
   * @param cd le code de la direction entre 0 et 7

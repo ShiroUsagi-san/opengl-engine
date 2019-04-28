@@ -19,7 +19,7 @@ public class Transformations {
 
     public Matrix4f getModelMatrix(Vector3f offset, float angleZ, float scale) {
         //TODO: update this when 3D
-        modelMatrix.identity().setTranslation(offset).setRotationZYX(angleZ, 0, 0).scale(scale);
+        modelMatrix.identity().translate(offset).setRotationZYX(angleZ, 0, 0).scale(scale);
         return modelMatrix;
     }
 }

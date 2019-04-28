@@ -45,7 +45,9 @@ public class Drawable {
 
         this.position = position;
     }
-
+    public Transformations getTransformations() {
+        return this.transformations;
+    }
     public float getScale() {
         return scale;
     }

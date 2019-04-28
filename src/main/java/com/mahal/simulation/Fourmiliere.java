@@ -8,18 +8,19 @@ import com.mahal.logic.Main;
 import com.mahal.logic.Renderer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.lwjgl.opengl.GL11.glViewport;
 
 public class Fourmiliere implements IGraphicsLogic{
     public Zone zone;
-    public static final Pos origine  = new Pos(10, 10);
+    public static final Pos origine  = new Pos(100, 100);
     private ArrayList<Entity> entites = new ArrayList<>();
     private final Renderer renderer;
 
-    public Fourmiliere() {
+    public Fourmiliere(int windowWidth, int windowHeight) {
         renderer = new Renderer();
-        zone = new Zone(Main.WIDTH, Main.HEIGHT, this.renderer.getShaderProgram());
+        zone = new Zone(windowWidth, windowHeight, this.renderer.getShaderProgram());
 
     }
     public ArrayList<Entity> getEntites() {
@@ -40,11 +41,12 @@ public class Fourmiliere implements IGraphicsLogic{
     public void init(Window window) throws Exception {
         renderer.init(window);
         zone = new Zone(Main.WIDTH, Main.HEIGHT, renderer.getShaderProgram());
-        Pos p1 = new Pos(50, 50);
-        Pos p2 = new Pos(50, 0);
+        Pos p1 = new Pos(300, 100);
+        Pos p2 = new Pos(200, 100);
         zone.metTas(300, p1);
+        zone.metTas(300, p2);
         Colonie c = new Colonie(1, origine, renderer.getShaderProgram(), zone);
-        entites.add(c);
+        entites.addAll(Arrays.asList(c.getPopulation()));
         entites.add(zone);
     }
 
@@ -61,13 +63,13 @@ public class Fourmiliere implements IGraphicsLogic{
             glViewport(0,0, window.getWidth(), window.getHeight());
             window.setResized(false);
         }
-
         window.setClearColor(Color.BLACK);
         renderer.getShaderProgram().bind();
 
         renderer.render(window);
         for(Entity e: entites) {
             e.render();
+
 
         }
         renderer.getShaderProgram().unbind();

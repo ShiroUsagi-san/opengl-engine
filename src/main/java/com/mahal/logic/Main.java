@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             boolean vSync = true;
-            IGraphicsLogic gameLogic = new Fourmiliere();
+            IGraphicsLogic gameLogic = new Fourmiliere(WIDTH, HEIGHT);
             GraphicsEngine gameEng = new GraphicsEngine("GAME",
                     WIDTH, HEIGHT, false, vSync, gameLogic);
             gameEng.start();

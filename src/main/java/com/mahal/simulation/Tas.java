@@ -27,14 +27,14 @@ public class Tas implements Entity {
     }
     public boolean isIn(Pos p) {
         return (p.getX() >= this.pos.getX() &&
-                p.getX() <= this.pos.getX() + DIMENSION * this.tas.getScale())
+                p.getX() <= this.pos.getX() + DIMENSION)
                 && (p.getY() >= this.pos.getY() &&
-                p.getY() <= this.pos.getY() + DIMENSION * this.tas.getScale() );
+                p.getY() <= this.pos.getY() + DIMENSION);
     }
     void diminuer(float q) {
         this.quantite -= q;
-        float newScale = this.getQuantite() / MAX_QUANTITE;
-        this.tas.setScale(newScale);
+        //float newScale = this.getQuantite() / MAX_QUANTITE;
+        //this.tas.setScale(newScale);
     }
     public float getQuantite() {
         return quantite;
