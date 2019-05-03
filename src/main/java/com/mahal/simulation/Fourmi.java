@@ -100,33 +100,10 @@ public class Fourmi implements Entity {
 
     public void bouge() {
         System.out.println("[fourmi] " + this.position);
-        this.position.setX(this.position.getX() + 1);
+        this.position.setX(this.position.getX() - 1);
         Tas tas = this.colonie.getZone().isInTas(this.position);
         if(tas != null)
             System.out.println(tas.getPos());
-        /*
-      //  if(Fourmiliere.zone.posValide(next_pos)) {
-            if (!this.estCharge) {
-                if(this.duration <= 0) {
-                    this.duration = 100;
-                    this.next_dir = Dir.DirAleatoire();
-                }
-                this.position = this.position.nextPos(this.next_dir);
-
-                Tas tas = this.colonie.getZone().isInTas(this.position);
-
-                if ( tas!= null) {
-                    if(tas.getQuantite() > 0.0f) {
-                        prend(tas);
-                    }
-                }
-            } else if (this.estCharge) {
-                RetourFourmiliere();
-            }
-
-       // }
-       */
-
     }
 
 

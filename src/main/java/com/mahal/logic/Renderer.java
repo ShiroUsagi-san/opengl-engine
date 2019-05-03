@@ -40,7 +40,7 @@ public class Renderer {
 
     public void render(Window window) {
         clear();
-        Matrix4f projectionMatrix = transformations.getOrthoMatrix(window.getWidth(), window.getHeight(), Z_NEAR, Z_FAR);
+        Matrix4f projectionMatrix = transformations.getOrthoMatrix(window.getWidth(), window.getWidth(), Z_NEAR, Z_FAR);
         shaderProgram.setUniform("projectionMatrix", projectionMatrix);
 
     }
