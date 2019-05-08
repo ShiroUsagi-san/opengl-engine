@@ -38,7 +38,7 @@ public class GraphicsEngine implements Runnable{
         float elapsedTime;
         float accumulator = 0f;
         float interval = 1f / TARGET_UPS;
-
+        int step = 0;
         boolean running = true;
         while (running && !window.windowShouldClose()) {
             elapsedTime = timer.getElapsedTime();
@@ -54,7 +54,7 @@ public class GraphicsEngine implements Runnable{
             if (!window.isVsync()) {
                 sync();
             }
-        }
+       }
     }
     private void sync() {
         float loopSlot = 1f / TARGET_FPS;

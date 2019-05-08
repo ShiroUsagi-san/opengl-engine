@@ -14,7 +14,7 @@ import static org.lwjgl.opengl.GL11.glViewport;
 
 public class Fourmiliere implements IGraphicsLogic{
     public Zone zone;
-    public static final Pos origine  = new Pos(400, 100);
+    public static final Pos origine  = new Pos(0, 100);
     private ArrayList<Entity> entites = new ArrayList<>();
     private final Renderer renderer;
 

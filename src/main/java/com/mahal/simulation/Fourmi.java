@@ -32,8 +32,8 @@ public class Fourmi implements Entity {
         this.estCharge = false;
         this.color = FOURMI_VIDE;
         this.shaderProgram = shaderProgram;
-        Mesh fourmiMesh = MeshBuilder.buildRect(this.position.getX(), this.position.getY(), 10, 10);
-        this.fourmiEntity = new Drawable(fourmiMesh, rot, position.getPosition(), 1, this.color);
+        Mesh fourmiMesh = MeshBuilder.buildRect(0, 0, 10, 10);
+        this.fourmiEntity = new Drawable(fourmiMesh, rot, position, 1, this.color);
     }
 
 
@@ -41,8 +41,8 @@ public class Fourmi implements Entity {
         this.colonie = colonie;
         this.color = FOURMI_VIDE;
         this.shaderProgram = shaderProgram;
-        Mesh fourmiMesh = MeshBuilder.buildRect(this.position.getX(), this.position.getY(), 10, 10);
-        this.fourmiEntity = new Drawable(fourmiMesh, rot, position.getPosition(), 1, this.color);
+        Mesh fourmiMesh = MeshBuilder.buildRect(0, 0, 10, 10);
+        this.fourmiEntity = new Drawable(fourmiMesh, rot, position, 1, this.color);
 
     }
 
@@ -50,8 +50,8 @@ public class Fourmi implements Entity {
         this.position = position;
         this.color = FOURMI_VIDE;
         this.shaderProgram = shaderProgram;
-        Mesh fourmiMesh = MeshBuilder.buildRect(this.position.getX(), this.position.getY(), 10, 10);
-        this.fourmiEntity = new Drawable(fourmiMesh, rot, position.getPosition(), 1, this.color);
+        Mesh fourmiMesh = MeshBuilder.buildRect(0, 0, 10, 10);
+        this.fourmiEntity = new Drawable(fourmiMesh, rot, position, 1, this.color);
 
     }
     public Fourmi(ShaderProgram shader) {
@@ -59,8 +59,8 @@ public class Fourmi implements Entity {
         this.position = new Pos(rand.nextInt((Main.WIDTH / 2) + 1), rand.nextInt((Main.HEIGHT / 2) + 1));
         this.color = FOURMI_VIDE;
         this.shaderProgram = shader;
-        Mesh fourmiMesh = MeshBuilder.buildRect(this.position.getX(), this.position.getY(), 10, 10);
-        this.fourmiEntity = new Drawable(fourmiMesh, rot, position.getPosition(), 1, this.color);
+        Mesh fourmiMesh = MeshBuilder.buildRect(0, 0, 10, 10);
+        this.fourmiEntity = new Drawable(fourmiMesh, rot, position, 1, this.color);
 
     }
     public void render(){
@@ -78,7 +78,7 @@ public class Fourmi implements Entity {
         this.duration --;
         this.bouge();
 
-        this.fourmiEntity.setPosition(this.position.getPosition());
+        this.fourmiEntity.setPosition(this.position);
         this.fourmiEntity.setColor(this.color);
 
     }
@@ -100,7 +100,7 @@ public class Fourmi implements Entity {
 
     public void bouge() {
         System.out.println("[fourmi] " + this.position);
-        this.position.setX(this.position.getX() - 1);
+        this.position.setX(this.position.getX() + 1);
         Tas tas = this.colonie.getZone().isInTas(this.position);
         if(tas != null)
             System.out.println(tas.getPos());

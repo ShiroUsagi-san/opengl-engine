@@ -21,8 +21,8 @@ public class Tas implements Entity {
         this.quantite = quantite;
         MAX_QUANTITE = quantite;
         this.shaderProgram = shaderProgram;
-        Mesh tasMesh = MeshBuilder.buildRect(this.pos.getX(), this.pos.getY(), DIMENSION, DIMENSION);
-        this.tas = new Drawable(tasMesh, 0.0f, this.pos.getPosition(), 1, Color.GREY);
+        Mesh tasMesh = MeshBuilder.buildRect(0, 0, DIMENSION, DIMENSION);
+        this.tas = new Drawable(tasMesh, 0.0f, this.pos, 1, Color.GREY);
 
     }
     public boolean isIn(Pos p) {

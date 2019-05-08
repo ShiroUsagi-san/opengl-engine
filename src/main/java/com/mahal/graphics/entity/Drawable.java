@@ -4,6 +4,7 @@ import com.mahal.graphics.ShaderProgram;
 import com.mahal.graphics.geometry.Mesh;
 import com.mahal.graphics.utils.Color;
 import com.mahal.graphics.utils.Transformations;
+import com.mahal.simulation.Pos;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
@@ -11,12 +12,12 @@ import org.joml.Vector3f;
 public class Drawable {
     private Mesh mesh;
     //private Quaternionf rotation;
-    private Vector3f position;
+    private Pos position;
     private float scale;
     private float rot;
     private Transformations transformations;
     private Color color;
-    public Drawable(Mesh mesh, float Zrotation, Vector3f position, float scale, Color color) {
+    public Drawable(Mesh mesh, float Zrotation, Pos position, float scale, Color color) {
         this.transformations = new Transformations();
         this.mesh = mesh;
         this.rot = Zrotation;
@@ -37,11 +38,11 @@ public class Drawable {
         this.rot = rot;
     }
 
-    public Vector3f getPosition() {
+    public Pos getPosition() {
         return position;
     }
 
-    public void setPosition(Vector3f position) {
+    public void setPosition(Pos position) {
 
         this.position = position;
     }
@@ -71,7 +72,7 @@ public class Drawable {
         this.mesh.cleanUp();
     }
     public void predraw(ShaderProgram shader) {
-        Matrix4f worldMatrix = transformations.getModelMatrix(this.getPosition(), this.getRot(), this.getScale());
+        Matrix4f worldMatrix = transformations.getModelMatrix(this.position.toVec3f(), this.getRot(), this.getScale());
         shader.setUniform("modelMatrix", worldMatrix);
         shader.setUniform("inColor", this.color.getColor());
 

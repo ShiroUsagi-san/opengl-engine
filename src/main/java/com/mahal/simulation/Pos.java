@@ -20,7 +20,9 @@ public class Pos {
         int dy = Math.round((int)(Math.random() *3))-1;
         return new Pos(this.x+dx*2,this.y+dy*2);
     }
-
+    public Vector3f toVec3f() {
+        return new Vector3f(x, y, 0);
+    }
     public Pos nextPos(Dir dir) {
         this.x += dir.dx();
         this.y += dir.dy();

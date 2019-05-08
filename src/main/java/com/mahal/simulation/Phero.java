@@ -14,15 +14,15 @@ public class Phero implements Entity {
     public Phero(Pos p, int duration){
         this.pos = p;
         this.duration = duration;
-        Mesh mesh = MeshBuilder.buildRect(p.getX(), p.getY(), 10, 10);
-        this.pheroMesh = new Drawable(mesh, 0, this.pos.getPosition(), 1,Color.YELLOW);
+        Mesh mesh = MeshBuilder.buildRect(0, 0, 10, 10);
+        this.pheroMesh = new Drawable(mesh, 0, this.pos, 1,Color.YELLOW);
 
     }
     public Phero(Pos p){
         this.pos = p;
         this.duration = 1000;
-        Mesh mesh = MeshBuilder.buildRect(p.getX(), p.getY(), 10, 10);
-        this.pheroMesh = new Drawable(mesh, 0, this.pos.getPosition(), 1,Color.YELLOW);
+        Mesh mesh = MeshBuilder.buildRect(0,0 , 10, 10);
+        this.pheroMesh = new Drawable(mesh, 0, this.pos, 1,Color.YELLOW);
     }
 
     @Override
