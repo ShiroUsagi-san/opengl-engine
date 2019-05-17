@@ -2,12 +2,14 @@ package com.mahal.simulation;
 
 import com.mahal.graphics.ShaderProgram;
 import com.mahal.graphics.entity.Entity;
+import com.mahal.graphics.utils.Color;
 
 import java.util.ArrayList;
 
 public class Zone implements Entity {
     private int Xdim, Ydim;      // la dimension du territoire
-    private ArrayList<Entity> zoneEntities = new ArrayList<>(); // les tas de nourriture
+    private ArrayList<Entity> entities = new ArrayList<>();
+    private ArrayList<Entity> removedEntities = new ArrayList<>();
     private int nbTas = 0; // le nombre de tas
     private ShaderProgram shaderProgram;
     /*************************************************
@@ -39,33 +41,36 @@ public class Zone implements Entity {
     public int getXdim() {
         return Xdim;
     }
-
     public int getYdim() {
         return Ydim;
     }
-
     /***********************************************************************
      * teste si une position est valide ( situ�e sur la Zone)
      * @param p  la position � tester
      * @return vrai si OK
      * ********************************************************************/
     public boolean posValide(Pos p) {
+
         return (p.getX() > 0 && p.getX() < this.Xdim && p.getY() > 0 && p.getY() < this.Ydim);
     }
-    public Tas isInTas(Pos p){
-        for(Entity t: zoneEntities){
-            if(t instanceof Tas) {
-                Tas leTas = (Tas)t;
-                if (leTas.isIn(p)){
-                    return leTas;
-                }
-            }
-         }
+    public boolean isColliding(Pos p){
+        return false;
+
+    }
+
+    public Entity checkCollision(Pos p){
+        for(Entity t: entities)
+            if (t.isColliding(p))
+                return t;
         return null;
     }
 
-    public void metTas(int quantite, Pos p) {
-        this.zoneEntities.add(new Tas(quantite, p, shaderProgram));
+
+    public void metTas(int size, float amount, Pos p) {
+        this.entities.add(new Tas(size, p, shaderProgram, amount));
+    }
+    public void addWall(Pos p, Color c, int width, int height) {
+        this.entities.add(new Wall(p, shaderProgram, c, width, height));
     }
     /***************************************************************
      * transforme en String la Zone : dimension - nid - tas
@@ -78,26 +83,32 @@ public class Zone implements Entity {
      * @param d la direction
      * *****************************************************************/
     public void posePhero(Pos p) {
+        Phero phero = new Phero(this, p, this.shaderProgram);
 
-        //TODO: A IMPLEMENTER
-       // t[p.getX()][p.getY()] = -(d + 1);//-1 � -8 pb si 0
+        this.entities.add(phero);
     }
-
+    public void addToRemove(Entity e) {
+        this.removedEntities.add(e);
+    }
     @Override
     public void render() {
-        for (Entity t: zoneEntities)
+        for (Entity t: entities)
             t.render();
     }
 
     @Override
     public void cleanup() {
-        for(Entity t: zoneEntities)
+        for(Entity t: entities)
             t.cleanup();
+
     }
 
     @Override
     public void update() {
-        for(Entity t: zoneEntities)
+        entities.removeAll(removedEntities);
+        for(Entity t: entities) {
             t.update();
+        }
     }
+
 }

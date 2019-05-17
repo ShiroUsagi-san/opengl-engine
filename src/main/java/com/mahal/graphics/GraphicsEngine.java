@@ -48,7 +48,6 @@ public class GraphicsEngine implements Runnable{
                 update(interval);
                 accumulator -= interval;
             }
-
             render();
 
             if (!window.isVsync()) {
@@ -68,7 +67,6 @@ public class GraphicsEngine implements Runnable{
     }
 
     protected void init() throws Exception{
-        System.out.println(window + " " + timer + " " + graphicsLogic);
         window.init();
         timer.init();
         graphicsLogic.init(window);

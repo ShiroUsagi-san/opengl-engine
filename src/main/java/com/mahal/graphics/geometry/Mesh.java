@@ -24,7 +24,6 @@ public class Mesh {
 
             vertexCount = indices.length;
 
-
             vaoId = glGenVertexArrays();
             glBindVertexArray(vaoId);
 
@@ -55,6 +54,8 @@ public class Mesh {
     }
 
     public void render() {
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glBindVertexArray(this.getVaoId());
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
@@ -64,7 +65,7 @@ public class Mesh {
         // Restore state
         glDisableVertexAttribArray(0);
         glBindVertexArray(0);
-
+        glDisable((GL_BLEND));
     }
     public void cleanUp() {
         glDisableVertexAttribArray(0);

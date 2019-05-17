@@ -114,7 +114,6 @@ public class Window {
         // Enable v-sync
         if(this.isVsync())
             glfwSwapInterval(1);
-
         // Make the window visible
         glfwShowWindow(window);
 

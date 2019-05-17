@@ -3,6 +3,7 @@ package com.mahal.graphics;
 
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.FloatBuffer;
@@ -59,6 +60,17 @@ public class ShaderProgram {
             FloatBuffer fb = stack.mallocFloat(3);
             vec.get(fb);
             glUniform3fv(this.uniformsMap.get(uniformName), fb);
+
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    public void setUniform(String uniformName, Vector4f vec) {
+        try(MemoryStack stack = MemoryStack.stackPush()) {
+            FloatBuffer fb = stack.mallocFloat(4);
+            vec.get(fb);
+            glUniform4fv(this.uniformsMap.get(uniformName), fb);
 
 
         } catch (Exception e) {

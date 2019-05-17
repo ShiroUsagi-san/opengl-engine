@@ -1,9 +1,8 @@
 package com.mahal.simulation;
 
 import com.mahal.graphics.ShaderProgram;
-import com.mahal.graphics.entity.Entity;
 
-public class Colonie implements Entity {
+public class Colonie {
     private Fourmi[] population;
     private int taille;
     private Pos pNid;
@@ -21,16 +20,6 @@ public class Colonie implements Entity {
             this.population[i] = new Fourmi(pNid, this, shaderProgram);
         }
     }
-
-    @Override
-    public void render(){
-    }
-
-    @Override
-    public void cleanup() { }
-
-    @Override
-    public void update() { }
 
     private void bouge() {
         for(Fourmi f: population) {

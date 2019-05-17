@@ -2,7 +2,6 @@ package com.mahal.simulation;
 
 import org.joml.Vector3f;
 
-
 public class Pos {
     private int x;
     private int y;
@@ -11,22 +10,23 @@ public class Pos {
         this.x = x;
         this.y = y;
     }
+
     public Pos(int dim) {
         this.x = Math.round((float)Math.random() * dim);
         this.y = Math.round((float)Math.random() * dim);
     }
+
     public Pos posVoisine(){
         int dx = Math.round((int)(Math.random()*3))-1;
         int dy = Math.round((int)(Math.random() *3))-1;
         return new Pos(this.x+dx*2,this.y+dy*2);
     }
+
     public Vector3f toVec3f() {
         return new Vector3f(x, y, 0);
     }
-    public Pos nextPos(Dir dir) {
-        this.x += dir.dx();
-        this.y += dir.dy();
-        return new Pos(this.x , this.y);
+    public  Pos nextPos(Dir dir) {
+        return new Pos(this.x + dir.dx() , this.y + dir.dy());
     }
 
     @Override
@@ -36,9 +36,11 @@ public class Pos {
         Pos pos = (Pos) o;
         return this.x == pos.x && this.y == pos.y;
     }
+
     public Vector3f getPosition() {
         return new Vector3f(this.x, this.y, 0);
     }
+
     public int getX() {
         return x;
     }

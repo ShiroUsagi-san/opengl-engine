@@ -5,8 +5,8 @@ import com.mahal.graphics.IGraphicsLogic;
 import com.mahal.simulation.Fourmiliere;
 
 public class Main {
-    public static int WIDTH = 1200;
-    public static int HEIGHT = 860;
+    public static int WIDTH = 500;
+    public static int HEIGHT = 500;
     public static void main(String[] args) {
         try {
             boolean vSync = true;

@@ -14,7 +14,7 @@ import static org.lwjgl.opengl.GL11.glViewport;
 
 public class Fourmiliere implements IGraphicsLogic{
     public Zone zone;
-    public static final Pos origine  = new Pos(0, 100);
+    public static final Pos origine  = new Pos(Main.WIDTH / 2 , Main.HEIGHT / 2);
     private ArrayList<Entity> entites = new ArrayList<>();
     private final Renderer renderer;
 
@@ -41,11 +41,12 @@ public class Fourmiliere implements IGraphicsLogic{
     public void init(Window window) throws Exception {
         renderer.init(window);
         zone = new Zone(Main.WIDTH, Main.HEIGHT, renderer.getShaderProgram());
-        Pos p1 = new Pos(300, 100);
-        Pos p2 = new Pos(200, 100);
-        zone.metTas(300, p1);
-        zone.metTas(300, p2);
-        Colonie c = new Colonie(1, origine, renderer.getShaderProgram(), zone);
+        Pos p1 = new Pos(400, 200);
+        Pos p2 = new Pos(Main.WIDTH / 2, 100);
+        zone.metTas(11,500f, p1 );
+        zone.metTas(11,500f, p2);
+        zone.addWall(new Pos(100,100), Color.BLUE, 100, 30);
+        Colonie c = new Colonie(100, origine, renderer.getShaderProgram(), zone);
         entites.addAll(Arrays.asList(c.getPopulation()));
         entites.add(zone);
     }

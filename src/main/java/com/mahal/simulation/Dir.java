@@ -38,8 +38,8 @@ public Dir(){
  * @param p2 position arrivee
  *************************************************************/
 public Dir(Pos p1, Pos p2){
-  int x = p1.getX()-p2.getX();
-  int y = p1.getY()-p2.getY();
+  int x = p2.getX() - p1.getX();
+  int y = p2.getY() - p1.getY();
   int i = 0;
   coded = i;
   double vc = Math.acos(cos(x,y,ddx[i],ddy[i]));
@@ -80,19 +80,20 @@ public int dy(){
   * @return la position voisine
   * ******************************************************************/
 public static Dir DirAleatoire(){
-    return new Dir((int)(Math.random() * 8));
+    return new Dir();
 }
    /*********************************************************************
   * rend une direction opposee � la direction courante
   * @return la position voisine
   * ******************************************************************/
- public int  dirOppose(){
+ public Dir  dirOppose(){
   int dop = (coded+4)%8;
-  return dop;
+  return new Dir(dop);
 }
 
 public static Dir dirVoisine(Dir d) {
-    return new Dir((int)Math.random() * ( Math.floorMod(d.coded - 1, 8) - Math.floorMod(d.coded + 1, 8)));
+     int debug = Math.floorMod((d.coded +  (int)(Math.random() * 3) - 1), 8);
+    return new Dir(debug);
 }
  /***************************************************************
    * donne la position voisine de la Direction indiqu�e
