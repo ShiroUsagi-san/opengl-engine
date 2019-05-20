@@ -15,7 +15,9 @@ public class Pos {
         this.x = Math.round((float)Math.random() * dim);
         this.y = Math.round((float)Math.random() * dim);
     }
-
+    public Pos offset(int offsetX, int offsetY) {
+        return new Pos(this.x + offsetX, this.y + offsetY);
+    }
     public Pos posVoisine(){
         int dx = Math.round((int)(Math.random()*3))-1;
         int dy = Math.round((int)(Math.random() *3))-1;

@@ -45,7 +45,9 @@ public class Fourmiliere implements IGraphicsLogic{
         Pos p2 = new Pos(Main.WIDTH / 2, 100);
         zone.metTas(11,500f, p1 );
         zone.metTas(11,500f, p2);
-        zone.addWall(new Pos(100,100), Color.BLUE, 100, 30);
+
+        zone.addWall(new Pos(Main.WIDTH / 2, Main.HEIGHT / 2 - 20), Color.BLUE, 30, 10);
+        zone.addWall(new Pos(Main.WIDTH / 2, Main.HEIGHT / 2 + 20), Color.BLUE, 30, 10);
         Colonie c = new Colonie(100, origine, renderer.getShaderProgram(), zone);
         entites.addAll(Arrays.asList(c.getPopulation()));
         entites.add(zone);

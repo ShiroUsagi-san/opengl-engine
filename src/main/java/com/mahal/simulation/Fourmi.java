@@ -24,6 +24,7 @@ public class Fourmi implements Entity {
     private Colonie colonie;
     private int duration = 100;
     private int foodAmount = 0;
+    private Tas tas;
     private Dir dir = Dir.DirAleatoire();
 
     public Fourmi(Pos position, Colonie colonie, ShaderProgram shaderProgram) {
@@ -89,6 +90,7 @@ public class Fourmi implements Entity {
 
     public void prend(Tas tas) {
         this.estCharge = true;
+        this.tas = tas;
         this.color = FOURMI_CHARGEE;
         tas.diminuer(2);
         tas.reduceQuantity(this.position);
@@ -96,38 +98,53 @@ public class Fourmi implements Entity {
     }
 
     public void retourFourmiliere() {
-        Pos pos = this.position.nextPos(new Dir(this.position,this.colonie.getpNid()));
-
-        //this.colonie.getZone().posePhero(this.position);
-        this.position = pos;
-
 
         if(this.position.equals(this.colonie.getpNid())){
             this.estCharge = false;
             this.color = FOURMI_VIDE;
         }
     }
-
-    public void bouge() {
-        if(this.estCharge) {
-            retourFourmiliere();
-            return;
-        }
+    public void moveEmpty() {
         this.dir = Dir.dirVoisine(this.dir);
         Pos pos = this.position.nextPos(this.dir);
-        if(!this.colonie.getZone().posValide(pos) || this.colonie.getZone().checkCollision(pos) instanceof Wall) {
+        if(!this.colonie.getZone().posValide(pos))
+            return;
+        if(this.colonie.getZone().checkCollision(pos) instanceof Wall) {
             return;
         }
+        Entity colliding = this.colonie.getZone().checkCollision(pos);
+        if(colliding instanceof Phero) {
+            Phero p = (Phero) colliding;
+            this.dir = new Dir(this.position, p.getAttractivity().getPos());
 
+        }
         this.position = pos;
-        if(Math.random() >1.9)
-            this.dir = this.dir.dirOppose();
-        //
-        Entity collision = this.colonie.getZone().checkCollision(this.position);
+        if (colliding instanceof Tas && !this.estCharge)
+            if (((Tas) colliding).getAmount() > 0)
+                prend((Tas) colliding);
 
-        if(collision instanceof Tas && !this.estCharge)
-            if(((Tas)collision).getAmount() > 0)
-                prend((Tas) collision);
+
+    }
+    public void moveLoaded() {
+        Pos pos = this.position.nextPos(new Dir(this.position,this.colonie.getpNid()));
+        if( this.colonie.getZone().checkCollision(pos) instanceof Wall) {
+            this.dir = new Dir(this.position.offset(4, 0),this.colonie.getpNid());
+            this.position = this.position.nextPos(this.dir);
+        } else {
+            this.colonie.getZone().posePhero(this.position, this.tas);
+            this.position = pos;
+            retourFourmiliere();
+        }
+
+
+    }
+
+    public void bouge() {
+        if(this.estCharge)
+            moveLoaded();
+        else if(!this.estCharge)
+            moveEmpty();
+
     }
 
 

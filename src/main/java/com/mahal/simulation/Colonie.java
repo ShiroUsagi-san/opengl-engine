@@ -10,6 +10,7 @@ public class Colonie {
     private ShaderProgram shaderProgram;
     private Zone zone;
 
+
     public Colonie(int taille, Pos pNid, ShaderProgram shaderProgram, Zone zone) {
         this.taille = taille;
         this.pNid = pNid;
