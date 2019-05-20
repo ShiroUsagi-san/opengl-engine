@@ -58,7 +58,7 @@ public Dir(Pos p1, Pos p2){
  * @param p2 position arrivee
  ***********************************************************************/
 public String toString(){
-  return "Dir : "+coded + "ddx:" + this.dx() + "ddy:" + this.dy();
+  return "Dir : "+coded + "\nddx:" + this.dx() + "ddy:" + this.dy();
 }
   /*************************************************
   * accesseur qui rend la composante x de la direction
@@ -103,6 +103,9 @@ public static Dir dirVoisine(Dir d) {
  public Pos posVoisine(Dir d){
    Dir next = dirVoisine(d);
    return (new Pos(ddx[next.dx()], ddy[next.dy()]));
+ }
+ public Dir getNormalDirection() {
+     return (new Dir(Math.floorMod(coded - 3, 8)));
  }
 /* ce qui suit peut sans doute �tre d�port� dans
  * une boite � outils

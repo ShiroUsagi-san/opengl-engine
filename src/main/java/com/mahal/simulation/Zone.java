@@ -82,8 +82,8 @@ public class Zone implements Entity {
      * @param p la position
      * @param d la direction
      * *****************************************************************/
-    public void posePhero(Pos p) {
-        Phero phero = new Phero(this, p, this.shaderProgram);
+    public void posePhero(Pos p, Tas t) {
+        Phero phero = new Phero(this, p, this.shaderProgram, t);
 
         this.entities.add(phero);
     }
